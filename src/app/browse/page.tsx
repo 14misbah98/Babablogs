@@ -107,10 +107,10 @@ export default function BrowsePage() {
   };
 
   return (
-    <div className="min-h-screen bg-muted/10">
+    <div className="min-h-screen bg-[#FAF7F2]">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12 animate-fade-in-up">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center space-y-4">
             <h1 className="text-4xl font-serif font-bold">The Digital Repository</h1>
@@ -120,38 +120,38 @@ export default function BrowsePage() {
           </div>
 
           {/* Search & Filter Bar */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <div className="flex flex-col md:flex-row gap-4 font-sans">
+            <div className="relative flex-1 group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <Input 
                 placeholder="Search text, titles, authors..." 
-                className="pl-10 h-12 bg-background border-none shadow-sm focus-visible:ring-1"
+                className="pl-11 h-12 bg-background border border-border/40 hover:border-primary/20 shadow-premium focus-visible:ring-1 focus-visible:ring-primary/20 rounded-xl transition-all"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
             </div>
             
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border-none shadow-sm px-6")}>
-                      <Filter className="h-4 w-4" />
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
+                      <Filter className="h-4 w-4 text-primary" />
                       Content Type
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel>Filter by Type</DropdownMenuLabel>
+                    <DropdownMenuLabel className="font-serif">Filter by Type</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {contentTypes.map(type => (
                       <DropdownMenuCheckboxItem
                         key={type}
                         checked={selectedTypes.includes(type)}
                         onCheckedChange={() => toggleType(type)}
-                        className="capitalize"
+                        className="capitalize rounded-lg"
                       >
                         {type}
                       </DropdownMenuCheckboxItem>
@@ -163,21 +163,22 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border-none shadow-sm px-6")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
                       Language
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel>Filter by Language</DropdownMenuLabel>
+                    <DropdownMenuLabel className="font-serif">Filter by Language</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {languages.map(lang => (
                       <DropdownMenuCheckboxItem
                         key={lang}
                         checked={selectedLangs.includes(lang)}
                         onCheckedChange={() => toggleLang(lang)}
+                        className="rounded-lg"
                       >
                         {lang}
                       </DropdownMenuCheckboxItem>
@@ -189,15 +190,15 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border-none shadow-sm px-6")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
                       Author
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel>Filter by Author</DropdownMenuLabel>
+                    <DropdownMenuLabel className="font-serif">Filter by Author</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {authors.length === 0 ? (
                       <div className="px-2 py-4 text-xs text-center text-muted-foreground italic">No authors found</div>
@@ -207,6 +208,7 @@ export default function BrowsePage() {
                           key={author}
                           checked={selectedAuthors.includes(author)}
                           onCheckedChange={() => toggleAuthor(author)}
+                          className="rounded-lg"
                         >
                           {author}
                         </DropdownMenuCheckboxItem>
@@ -219,15 +221,15 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border-none shadow-sm px-6")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
                       Date
                       <ChevronDown className="h-4 w-4 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel>Filter by Date</DropdownMenuLabel>
+                    <DropdownMenuLabel className="font-serif">Filter by Date</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     {dates.length === 0 ? (
                       <div className="px-2 py-4 text-xs text-center text-muted-foreground italic">No dates found</div>
@@ -237,6 +239,7 @@ export default function BrowsePage() {
                           key={date}
                           checked={selectedDates.includes(date)}
                           onCheckedChange={() => toggleDate(date)}
+                          className="rounded-lg"
                         >
                           {date}
                         </DropdownMenuCheckboxItem>
@@ -262,53 +265,53 @@ export default function BrowsePage() {
                 </div>
               ) : (
                 filteredItems.map(item => (
-                  <Card key={item.id} className="group border-none shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden bg-background">
+                  <Card key={item.id} className="group border border-border/20 shadow-premium hover:shadow-premium-hover hover:scale-[1.01] transition-all duration-300 overflow-hidden bg-background rounded-xl">
                     <CardHeader className="pb-3">
                       <div className="flex items-center justify-between mb-2">
-                        <Badge variant="outline" className="text-[9px] uppercase font-bold tracking-widest px-1.5 py-0">
+                        <Badge variant="outline" className="text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 border-primary/20 text-primary bg-primary/5 rounded">
                           {item.contentType}
                         </Badge>
-                        <span className="text-[10px] text-muted-foreground font-medium">{item.publishDate}</span>
+                        <span className="text-[10px] text-muted-foreground font-sans font-semibold uppercase tracking-wider">{item.publishDate}</span>
                       </div>
-                      <CardTitle className="font-serif group-hover:text-primary transition-colors line-clamp-1">{item.title}</CardTitle>
+                      <CardTitle className="font-serif group-hover:text-primary transition-colors line-clamp-1 text-base">{item.title}</CardTitle>
                     </CardHeader>
                     <CardContent className="pb-3 text-sm">
-                      <p className="text-muted-foreground mb-4 font-medium">By {item.author}</p>
+                      <p className="text-muted-foreground mb-4 font-sans text-xs">By <span className="font-serif italic font-medium text-foreground">{item.author}</span></p>
                       <div className="flex flex-wrap gap-1.5">
                         {item.tags.map(tag => (
-                          <span key={tag} className="text-[9px] bg-muted/50 px-2 py-0.5 rounded text-muted-foreground uppercase font-semibold">
+                          <span key={tag} className="text-[9px] bg-secondary/80 px-2 py-0.5 rounded-sm border border-border/40 text-muted-foreground uppercase font-bold tracking-wider">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </CardContent>
-                    <CardFooter className="pt-3 border-t bg-muted/5 flex gap-2">
+                    <CardFooter className="pt-3 border-t border-border/30 bg-muted/10 flex gap-2 font-sans">
                       <Dialog>
                         <DialogTrigger
                           render={
-                            <Button variant="ghost" size="sm" className="flex-1 h-9 gap-2 text-xs">
+                            <Button variant="ghost" size="sm" className="flex-1 h-9 gap-2 text-xs border border-border/40 hover:border-primary/20 hover:bg-primary/5 transition-all rounded-lg font-semibold hover:text-primary cursor-pointer">
                               <Eye className="h-3.5 w-3.5" />
                               Insights
                             </Button>
                           }
                         />
-                        <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col">
+                        <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col rounded-xl shadow-premium">
                           <DialogHeader>
                             <DialogTitle className="font-serif text-xl flex items-center gap-2">
                               <Type className="h-5 w-5 text-primary" />
                               Extracted Text Analysis
                             </DialogTitle>
-                            <DialogDescription>
+                            <DialogDescription className="font-sans">
                               Full text content retrieved from {item.title} via OCR.
                             </DialogDescription>
                           </DialogHeader>
-                          <div className="flex-1 overflow-y-auto my-4 p-6 bg-muted/30 rounded-xl border border-muted-foreground/10">
+                          <div className="flex-1 overflow-y-auto my-4 p-6 bg-[#FAF7F2] rounded-xl border border-border/60">
                             {item.extractedText ? (
-                              <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-foreground/80 selection:bg-primary/20">
+                              <pre className="whitespace-pre-wrap font-serif text-sm leading-relaxed text-foreground/80 selection:bg-primary/20">
                                 {item.extractedText}
                               </pre>
                             ) : (
-                              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground italic">
+                              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground italic font-serif">
                                 <Search className="h-12 w-12 mb-4 opacity-20" />
                                 <p>No text was extracted from this record.</p>
                               </div>
@@ -321,7 +324,7 @@ export default function BrowsePage() {
                         href={`/${item.filePath}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "flex-1 h-9 gap-2 text-xs")}
+                        className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "flex-1 h-9 gap-2 text-xs border border-border/40 hover:border-primary/20 hover:bg-primary/5 transition-all rounded-lg font-semibold hover:text-primary cursor-pointer")}
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                         View

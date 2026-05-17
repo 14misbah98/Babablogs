@@ -58,6 +58,22 @@
       height: 0;
     }
   }
+
+  --shadow-premium: 0 10px 30px -10px rgba(110, 62, 40, 0.04), 0 1px 3px rgba(110, 62, 40, 0.01);
+  --shadow-premium-hover: 0 20px 40px -15px rgba(110, 62, 40, 0.08), 0 2px 8px rgba(110, 62, 40, 0.03);
+  
+  --animate-fade-in-up: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer base {
