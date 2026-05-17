@@ -6,12 +6,12 @@ import { ArrowRight, BookOpen, Search, ShieldCheck } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF7F2]">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <main className="flex-1 animate-fade-in-up">
         {/* Hero Section */}
-        <section className="py-24 px-4 text-center bg-linear-to-b from-[#FAF7F2] to-[#ECE6DE]/30 relative overflow-hidden">
+        <section className="py-24 px-4 text-center bg-linear-to-b from-background to-muted/30 relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(#FAF7F2_1px,transparent_1px)] [background-size:16px_16px] opacity-40" />
           <div className="container mx-auto max-w-4xl relative z-10">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-[10px] uppercase font-bold tracking-widest mb-6">
