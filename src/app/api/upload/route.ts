@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
-import { getStore } from '@netlify/blobs';
-import { addContent } from '@/lib/storage';
+import { addContent, getUploadsStore } from '@/lib/storage';
 import { extractText } from '@/lib/ocr';
 import { ContentMetadata, ContentType } from '@/lib/types';
 import { isAuthenticated } from '@/lib/auth';
@@ -44,7 +43,7 @@ export async function POST(req: NextRequest) {
     const filePath = `uploads/${subfolder}/${fileName}`;
 
     // Save the file to Netlify Blobs
-    const store = getStore('uploads');
+    const store = getUploadsStore();
     await store.set(filePath, bytes, {
       metadata: {
         contentType: file.type,

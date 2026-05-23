@@ -1,9 +1,15 @@
 import { getStore } from '@netlify/blobs';
 import { ContentMetadata } from './types';
 
-const getSiteDataStore = () => getStore('site-data');
-const getUploadsStore = () => getStore('uploads');
+export const getSiteDataStore = () => getStore('site-data', {
+  siteID: process.env.NETLIFY_SITE_ID,
+  token: process.env.NETLIFY_API_TOKEN,
+});
 
+export const getUploadsStore = () => getStore('uploads', {
+  siteID: process.env.NETLIFY_SITE_ID,
+  token: process.env.NETLIFY_API_TOKEN,
+});
 const METADATA_KEY = 'metadata';
 
 export async function ensureStorage() {

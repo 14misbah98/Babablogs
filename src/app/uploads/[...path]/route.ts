@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getStore } from '@netlify/blobs';
+import { getUploadsStore } from '@/lib/storage';
 
 export async function GET(
   request: NextRequest,
@@ -8,7 +8,7 @@ export async function GET(
   const resolvedParams = await params;
   const filePath = `uploads/${resolvedParams.path.join('/')}`;
   
-  const store = getStore('uploads');
+  const store = getUploadsStore();
   const blob = await store.get(filePath, { type: 'blob' });
 
   if (!blob) {

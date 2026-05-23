@@ -1,4 +1,4 @@
-import { getStore } from '@netlify/blobs';
+import { getSiteDataStore } from './storage';
 import { cookies } from 'next/headers';
 import { AuthSession } from './types';
 
@@ -14,7 +14,6 @@ const SESSION_COOKIE_NAME = 'archive_session';
 const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
 const USERS_KEY = 'users';
 
-const getSiteDataStore = () => getStore('site-data');
 
 async function getUsers(): Promise<User[]> {
   const store = getSiteDataStore();
