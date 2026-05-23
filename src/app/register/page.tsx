@@ -40,60 +40,101 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12 animate-fade-in-up font-sans">
-      <div className="w-full max-w-md space-y-8">
-        <div className="flex flex-col items-center justify-center text-center">
-          <Link href="/" className="flex items-center gap-2.5 font-serif text-3xl font-bold mb-2 tracking-tight hover:opacity-90 active:scale-98 transition-all">
-            <Library className="h-7 w-7 text-primary" />
-            <span>Baba<span className="text-muted-foreground font-light italic">Blogs</span> <span className="font-sans text-[10px] uppercase tracking-widest text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 ml-1.5 align-middle">Archive</span></span>
+    <div className="min-h-screen flex items-center justify-center bg-[#1A1209] text-[#F5ECD7] px-4 py-12 animate-fade-in-up font-body">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <Link href="/" className="inline-flex items-center gap-2.5 font-serif text-2xl font-bold mb-2 tracking-tight hover:opacity-90 active:scale-98 transition-all text-[#F5ECD7]">
+            <Library className="h-6 w-6 text-[#D4A354]" />
+            <span>
+              Baba<span className="text-[#8B6F47] font-light italic">Blogs</span> 
+              <span className="font-sans text-[9px] uppercase tracking-widest text-[#D4A354] bg-[#D4A354]/5 px-2 py-0.5 rounded border border-[#D4A354]/20 ml-1.5 align-middle">
+                Archive
+              </span>
+            </span>
           </Link>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mt-1">Join our community of authors</p>
+          <p className="text-[10px] text-[#8B6F47] uppercase tracking-[0.12em] font-sans font-semibold mt-2">
+            Join our community of authors
+          </p>
         </div>
 
-        <Card className="border border-border/20 shadow-premium rounded-xl">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-serif">Create an Account</CardTitle>
-            <CardDescription className="font-sans">
+        <Card className="border border-[#D4A354]/20 bg-[#2C200F]/80 backdrop-blur-md shadow-premium rounded-none">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-2xl font-serif font-bold text-[#F5ECD7]">Create an Account</CardTitle>
+            <CardDescription className="font-sans text-[#8B6F47] text-sm">
               Enter your details to register as a new author.
             </CardDescription>
           </CardHeader>
+          
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4 font-sans">
               {error && (
-                <div className="bg-destructive/10 border border-destructive/20 text-destructive text-sm p-3 rounded-md">
+                <div className="bg-[#7f1d1d]/30 border border-[#f87171]/30 text-[#f87171] text-xs p-3 rounded-none">
                   {error}
                 </div>
               )}
+              
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-xs font-semibold text-muted-foreground">Full Name</Label>
-                <Input id="name" name="name" placeholder="John Doe" className="h-10 border border-border/40 hover:border-primary/20 focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg transition-all" required />
+                <Label htmlFor="name" className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#8B6F47]">
+                  Full Name
+                </Label>
+                <Input 
+                  id="name" 
+                  name="name" 
+                  placeholder="John Doe" 
+                  className="h-11 bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all text-sm font-sans" 
+                  required 
+                />
               </div>
+              
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-xs font-semibold text-muted-foreground">Username</Label>
-                <Input id="username" name="username" placeholder="johndoe" className="h-10 border border-border/40 hover:border-primary/20 focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg transition-all" required />
+                <Label htmlFor="username" className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#8B6F47]">
+                  Username
+                </Label>
+                <Input 
+                  id="username" 
+                  name="username" 
+                  placeholder="johndoe" 
+                  className="h-11 bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all text-sm font-sans" 
+                  required 
+                />
               </div>
+              
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-xs font-semibold text-muted-foreground">Password</Label>
-                <Input id="password" name="password" type="password" placeholder="••••••••" className="h-10 border border-border/40 hover:border-primary/20 focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg transition-all" required />
+                <Label htmlFor="password" className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#8B6F47]">
+                  Password
+                </Label>
+                <Input 
+                  id="password" 
+                  name="password" 
+                  type="password" 
+                  placeholder="••••••••" 
+                  className="h-11 bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all text-sm font-sans" 
+                  required 
+                />
               </div>
             </CardContent>
-            <CardFooter className="flex flex-col gap-4 font-sans">
-              <Button type="submit" className="w-full h-11 rounded-full font-semibold shadow-sm hover:shadow-md transition-all cursor-pointer" disabled={loading}>
+            
+            <CardFooter className="flex flex-col gap-5 pt-4 pb-6 font-sans">
+              <Button 
+                type="submit" 
+                className="w-full h-11 rounded-none font-sans uppercase tracking-[0.08em] text-xs font-semibold bg-[#D4A354] hover:bg-[#D4A354]/90 text-[#1A1209] transition-all hover:shadow-[0_0_15px_rgba(212,163,84,0.2)] flex items-center justify-center gap-2 cursor-pointer" 
+                disabled={loading}
+              >
                 {loading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="h-4 w-4 animate-spin text-[#1A1209]" />
                     Creating Account...
                   </>
                 ) : (
                   <>
-                    <UserPlus className="mr-2 h-4 w-4" />
+                    <UserPlus className="h-4 w-4 text-[#1A1209]" />
                     Sign Up
                   </>
                 )}
               </Button>
-              <p className="text-center text-sm text-muted-foreground">
+              <p className="text-center text-xs text-[#8B6F47]">
                 Already have an account?{' '}
-                <Link href="/login" className="text-primary font-medium hover:underline">
+                <Link href="/login" className="text-[#D4A354] font-semibold hover:underline">
                   Log in
                 </Link>
               </p>

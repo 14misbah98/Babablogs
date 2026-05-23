@@ -67,7 +67,6 @@ export default function UploadsPage() {
   };
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadItems();
   }, []);
 
@@ -175,87 +174,93 @@ export default function UploadsPage() {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-8 font-sans">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-serif font-bold">My Uploads</h1>
-          <p className="text-muted-foreground">Manage your archived content and metadata.</p>
+          <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#F5ECD7] mb-2">My Uploads</h1>
+          <p className="text-sm text-[#8B6F47] font-serif italic">Manage your archived content and metadata.</p>
         </div>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger
             render={
-              <button className={cn(buttonVariants(), "gap-2")}>
-                <Plus className="h-4 w-4" />
+              <button className={cn(buttonVariants(), "gap-2 px-6 h-11 bg-[#D4A354] hover:bg-[#D4A354]/90 text-[#1A1209] border border-[#D4A354] hover:shadow-[0_0_15px_rgba(212,163,84,0.2)] rounded-none text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer")}>
+                <Plus className="h-4 w-4 text-[#1A1209]" />
                 New Upload
               </button>
             }
           />
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle className="font-serif text-xl">Upload New Content</DialogTitle>
-              <DialogDescription>
-                Add a PDF, Image, or Text file. AI OCR will automatically extract text.
+          <DialogContent className="sm:max-w-[500px] border border-[#D4A354]/25 bg-[#1A1209] text-[#F5ECD7] rounded-none shadow-premium font-sans">
+            <DialogHeader className="border-b border-[#D4A354]/15 pb-4">
+              <DialogTitle className="font-serif text-xl text-[#D4A354] font-bold">Upload New Content</DialogTitle>
+              <DialogDescription className="text-xs text-[#8B6F47] mt-1 font-sans">
+                Add a PDF, Image, or Text file. AI OCR will automatically extract and index the text.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleUpload} className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input id="title" value={title} onChange={e => setTitle(e.target.value)} required />
+                  <Label htmlFor="title" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Title</Label>
+                  <Input id="title" value={title} onChange={e => setTitle(e.target.value)} required className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="author">Author Name</Label>
-                  <Input id="author" value={author} onChange={e => setAuthor(e.target.value)} required />
+                  <Label htmlFor="author" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Author Name</Label>
+                  <Input id="author" value={author} onChange={e => setAuthor(e.target.value)} required className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
               </div>
+              
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="type">Content Type</Label>
+                  <Label htmlFor="type" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Content Type</Label>
                   <Select value={contentType} onValueChange={(v) => { if (v) setContentType(v as ContentType); }}>
-                    <SelectTrigger id="type">
+                    <SelectTrigger id="type" className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none transition-all font-sans text-sm">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pdf">PDF Document</SelectItem>
-                      <SelectItem value="image">Image / Scan</SelectItem>
-                      <SelectItem value="text">Plain Text</SelectItem>
+                    <SelectContent className="bg-[#2C200F] border border-[#D4A354]/25 text-[#F5ECD7] rounded-none font-sans">
+                      <SelectItem value="pdf" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">PDF Document</SelectItem>
+                      <SelectItem value="image" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Image / Scan</SelectItem>
+                      <SelectItem value="text" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Plain Text</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lang">Language</Label>
+                  <Label htmlFor="lang" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Language</Label>
                   <Select value={language} onValueChange={(v) => { if (v) setLanguage(v); }}>
-                    <SelectTrigger id="lang">
+                    <SelectTrigger id="lang" className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none transition-all font-sans text-sm">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="English">English</SelectItem>
-                      <SelectItem value="Urdu">Urdu</SelectItem>
-                      <SelectItem value="Hindi">Hindi</SelectItem>
-                      <SelectItem value="Marathi">Marathi</SelectItem>
+                    <SelectContent className="bg-[#2C200F] border border-[#D4A354]/25 text-[#F5ECD7] rounded-none font-sans">
+                      <SelectItem value="English" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">English</SelectItem>
+                      <SelectItem value="Urdu" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Urdu</SelectItem>
+                      <SelectItem value="Hindi" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Hindi</SelectItem>
+                      <SelectItem value="Marathi" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Marathi</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
+              
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="date">Publish Date</Label>
-                  <Input id="date" type="date" value={publishDate} onChange={e => setPublishDate(e.target.value)} />
+                  <Label htmlFor="date" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Publish Date</Label>
+                  <Input id="date" type="date" value={publishDate} onChange={e => setPublishDate(e.target.value)} className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="tags">Tags (comma separated)</Label>
-                  <Input id="tags" placeholder="history, research, archive" value={tags} onChange={e => setTags(e.target.value)} />
+                  <Label htmlFor="tags" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Tags (comma separated)</Label>
+                  <Input id="tags" placeholder="history, research, archive" value={tags} onChange={e => setTags(e.target.value)} className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
               </div>
+              
               <div className="space-y-2 pt-2">
-                <Label htmlFor="file">File Attachment</Label>
-                <Input id="file" type="file" onChange={e => setFile(e.target.files?.[0] || null)} required />
-                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Supports PDF, JPG, PNG, TXT</p>
+                <Label htmlFor="file" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">File Attachment</Label>
+                <Input id="file" type="file" onChange={e => setFile(e.target.files?.[0] || null)} required className="h-11 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-xs pt-2.5 cursor-pointer file:bg-[#D4A354] file:text-[#1A1209] file:border-none file:h-7 file:font-sans file:uppercase file:text-[9px] file:font-bold file:px-3 file:mr-3" />
+                <p className="text-[9px] text-[#8B6F47] uppercase tracking-widest font-semibold mt-1">Supports PDF, JPG, PNG, TXT</p>
               </div>
-              <DialogFooter className="pt-4">
-                <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                <Button type="submit" disabled={uploading}>
+              
+              <DialogFooter className="pt-4 border-t border-[#D4A354]/10 gap-2">
+                <Button type="button" variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-none text-xs uppercase tracking-widest text-[#8B6F47] hover:bg-[#2C200F] cursor-pointer">
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={uploading} className="rounded-none text-xs uppercase tracking-widest font-semibold bg-[#D4A354] hover:bg-[#D4A354]/90 text-[#1A1209] px-6 cursor-pointer">
                   {uploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Start Archiving'}
                 </Button>
               </DialogFooter>
@@ -265,51 +270,53 @@ export default function UploadsPage() {
 
         {/* Edit Dialog */}
         <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-          <DialogContent className="sm:max-w-[500px]">
-            <DialogHeader>
-              <DialogTitle className="font-serif text-xl">Edit Content Metadata</DialogTitle>
-              <DialogDescription>
-                Update the metadata for your archived item. Note: File cannot be changed here.
+          <DialogContent className="sm:max-w-[500px] border border-[#D4A354]/25 bg-[#1A1209] text-[#F5ECD7] rounded-none shadow-premium font-sans">
+            <DialogHeader className="border-b border-[#D4A354]/15 pb-4">
+              <DialogTitle className="font-serif text-xl text-[#D4A354] font-bold">Edit Content Metadata</DialogTitle>
+              <DialogDescription className="text-xs text-[#8B6F47] mt-1 font-sans">
+                Update the metadata details for your archived item. (Note: Attached file cannot be changed).
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleUpdate} className="space-y-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="edit-title">Title</Label>
-                  <Input id="edit-title" value={title} onChange={e => setTitle(e.target.value)} required />
+                  <Label htmlFor="edit-title" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Title</Label>
+                  <Input id="edit-title" value={title} onChange={e => setTitle(e.target.value)} required className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="edit-author">Author Name</Label>
-                  <Input id="edit-author" value={author} onChange={e => setAuthor(e.target.value)} required />
+                  <Label htmlFor="edit-author" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Author Name</Label>
+                  <Input id="edit-author" value={author} onChange={e => setAuthor(e.target.value)} required className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="edit-lang">Language</Label>
+                  <Label htmlFor="edit-lang" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Language</Label>
                   <Select value={language} onValueChange={(v) => { if (v) setLanguage(v); }}>
-                    <SelectTrigger id="edit-lang">
+                    <SelectTrigger id="edit-lang" className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none transition-all font-sans text-sm">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="English">English</SelectItem>
-                      <SelectItem value="Urdu">Urdu</SelectItem>
-                      <SelectItem value="Hindi">Hindi</SelectItem>
-                      <SelectItem value="Marathi">Marathi</SelectItem>
+                    <SelectContent className="bg-[#2C200F] border border-[#D4A354]/25 text-[#F5ECD7] rounded-none font-sans">
+                      <SelectItem value="English" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">English</SelectItem>
+                      <SelectItem value="Urdu" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Urdu</SelectItem>
+                      <SelectItem value="Hindi" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Hindi</SelectItem>
+                      <SelectItem value="Marathi" className="rounded-none cursor-pointer hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10">Marathi</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="edit-date">Publish Date</Label>
-                  <Input id="edit-date" type="date" value={publishDate} onChange={e => setPublishDate(e.target.value)} />
+                  <Label htmlFor="edit-date" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Publish Date</Label>
+                  <Input id="edit-date" type="date" value={publishDate} onChange={e => setPublishDate(e.target.value)} className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="edit-tags">Tags (comma separated)</Label>
-                <Input id="edit-tags" placeholder="history, research, archive" value={tags} onChange={e => setTags(e.target.value)} />
+                <Label htmlFor="edit-tags" className="text-[9px] uppercase tracking-widest text-[#8B6F47] font-semibold">Tags (comma separated)</Label>
+                <Input id="edit-tags" placeholder="history, research, archive" value={tags} onChange={e => setTags(e.target.value)} className="h-10 bg-[#2C200F]/45 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-sm" />
               </div>
-              <DialogFooter className="pt-4">
-                <Button type="button" variant="ghost" onClick={() => { setIsEditDialogOpen(false); setEditingItem(null); resetForm(); }}>Cancel</Button>
-                <Button type="submit" disabled={uploading}>
+              <DialogFooter className="pt-4 border-t border-[#D4A354]/10 gap-2">
+                <Button type="button" variant="ghost" onClick={() => { setIsEditDialogOpen(false); setEditingItem(null); resetForm(); }} className="rounded-none text-xs uppercase tracking-widest text-[#8B6F47] hover:bg-[#2C200F] cursor-pointer">
+                  Cancel
+                </Button>
+                <Button type="submit" disabled={uploading} className="rounded-none text-xs uppercase tracking-widest font-semibold bg-[#D4A354] hover:bg-[#D4A354]/90 text-[#1A1209] px-6 cursor-pointer">
                   {uploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Save Changes'}
                 </Button>
               </DialogFooter>
@@ -318,85 +325,87 @@ export default function UploadsPage() {
         </Dialog>
       </div>
 
-      <Card className="border-none shadow-sm">
-        <CardHeader className="pb-3 border-b">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+      {/* Main Uploads Card */}
+      <Card className="border border-[#D4A354]/15 bg-[#2C200F]/80 rounded-none shadow-premium overflow-hidden">
+        <CardHeader className="pb-4 border-b border-[#D4A354]/10">
+          <div className="relative group max-w-md">
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6F47] group-focus-within:text-[#D4A354] transition-colors" />
             <Input 
               placeholder="Search by title, author, or tags..." 
-              className="pl-10 max-w-md"
+              className="pl-10 max-w-md bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 rounded-none focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 transition-all font-sans text-xs h-10"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
             />
           </div>
         </CardHeader>
+        
         <CardContent className="p-0">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Title</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Author</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead>Tags</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+            <TableHeader className="bg-[#0F0B06]/50 border-b border-[#D4A354]/10">
+              <TableRow className="border-none hover:bg-transparent">
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11 px-6">Title</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11">Type</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11">Author</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11">Date</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11">Tags</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D4A354] h-11 text-right px-6">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center py-10">
-                    <Loader2 className="h-6 w-6 animate-spin mx-auto text-muted-foreground" />
+                <TableRow className="border-none hover:bg-transparent">
+                  <TableCell colSpan={6} className="text-center py-16">
+                    <Loader2 className="h-6 w-6 animate-spin mx-auto text-[#D4A354]" />
                   </TableCell>
                 </TableRow>
               ) : filteredItems.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center py-10 text-muted-foreground italic">
+                <TableRow className="border-[#D4A354]/10 hover:bg-transparent">
+                  <TableCell colSpan={6} className="text-center py-16 text-sm text-[#8B6F47] italic font-serif">
                     {searchQuery ? 'No results found for your search.' : 'No items found. Upload some content to get started.'}
                   </TableCell>
                 </TableRow>
               ) : (
                 filteredItems.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell className="font-medium">
+                  <TableRow key={item.id} className="border-b border-[#D4A354]/10 hover:bg-[#1A1209]/20 transition-all duration-200">
+                    <TableCell className="font-serif px-6 py-4">
                       <div className="flex flex-col">
-                        <span>{item.title}</span>
-                        <span className="text-[10px] text-muted-foreground font-mono">{item.id.slice(0, 8)}</span>
+                        <span className="font-bold text-sm text-[#F5ECD7]">{item.title}</span>
+                        <span className="text-[9px] text-[#8B6F47] font-mono tracking-wide mt-0.5">{item.id.slice(0, 8)}</span>
                       </div>
                     </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className="capitalize text-[10px] font-bold">
+                    <TableCell className="py-4">
+                      <Badge variant="outline" className="capitalize text-[8px] font-sans font-bold tracking-widest rounded-none border-[#D4A354]/30 text-[#D4A354] bg-[#D4A354]/5 px-2 py-0.5">
                         {item.contentType}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-sm">{item.author}</TableCell>
-                    <TableCell className="text-sm">{item.publishDate}</TableCell>
-                    <TableCell>
+                    <TableCell className="text-xs text-[#8B6F47] font-medium py-4">{item.author}</TableCell>
+                    <TableCell className="text-xs text-[#8B6F47] font-medium py-4">{item.publishDate}</TableCell>
+                    <TableCell className="py-4">
                       <div className="flex flex-wrap gap-1">
                         {item.tags.map(tag => (
-                          <span key={tag} className="text-[10px] bg-muted px-1.5 py-0.5 rounded uppercase font-medium">
+                          <span key={tag} className="text-[8px] bg-[#1A1209] border border-[#D4A354]/10 text-[#8B6F47] px-2 py-0.5 rounded-none font-sans font-bold tracking-wide uppercase">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
+                    <TableCell className="text-right px-6 py-4">
+                      <div className="flex justify-end gap-2.5">
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="h-8 w-8"
+                          className="h-8 w-8 rounded-none border border-[#D4A354]/20 hover:border-[#D4A354] hover:bg-[#D4A354]/10 text-[#D4A354] transition-all cursor-pointer"
                           onClick={() => handleEditClick(item)}
                         >
-                          <Edit className="h-4 w-4" />
+                          <Edit className="h-3.5 w-3.5" />
                         </Button>
                         <Button 
                           variant="ghost" 
                           size="icon" 
-                          className="h-8 w-8 text-destructive hover:bg-destructive/10" 
+                          className="h-8 w-8 rounded-none border border-[#7f1d1d]/30 hover:border-[#f87171]/40 hover:bg-[#7f1d1d]/20 text-[#f87171] transition-all cursor-pointer" 
                           onClick={() => handleDelete(item.id)}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-3.5 w-3.5" />
                         </Button>
                       </div>
                     </TableCell>

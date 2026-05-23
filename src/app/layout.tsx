@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Crimson_Pro } from "next/font/google";
+import { Inter, Playfair_Display, Lora } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -8,9 +8,14 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const crimson = Crimson_Pro({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-serif",
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-body",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${crimson.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} ${lora.variable} font-body antialiased`}>
         {children}
         <Toaster />
       </body>

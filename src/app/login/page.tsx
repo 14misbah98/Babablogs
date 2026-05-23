@@ -48,56 +48,73 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4 animate-fade-in-up font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-[#1A1209] text-[#F5ECD7] px-4 animate-fade-in-up font-body">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 font-serif text-2xl font-bold mb-2 tracking-tight hover:opacity-90 active:scale-98 transition-all">
-            <Library className="h-6 w-6 text-primary" />
-            <span>Baba<span className="text-muted-foreground font-light italic">Blogs</span> <span className="font-sans text-[10px] uppercase tracking-widest text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 ml-1.5 align-middle">Archive</span></span>
+          <Link href="/" className="inline-flex items-center gap-2.5 font-serif text-2xl font-bold mb-2 tracking-tight hover:opacity-90 active:scale-98 transition-all text-[#F5ECD7]">
+            <Library className="h-6 w-6 text-[#D4A354]" />
+            <span>
+              Baba<span className="text-[#8B6F47] font-light italic">Blogs</span> 
+              <span className="font-sans text-[9px] uppercase tracking-widest text-[#D4A354] bg-[#D4A354]/5 px-2 py-0.5 rounded border border-[#D4A354]/20 ml-1.5 align-middle">
+                Archive
+              </span>
+            </span>
           </Link>
-          <p className="text-xs text-muted-foreground uppercase tracking-widest font-semibold mt-1">Author Portal Access</p>
+          <p className="text-[10px] text-[#8B6F47] uppercase tracking-[0.12em] font-sans font-semibold mt-2">
+            Author Portal Access
+          </p>
         </div>
 
-        <Card className="border border-border/20 shadow-premium rounded-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-serif">Sign In</CardTitle>
-            <CardDescription className="font-sans">
+        <Card className="border border-[#D4A354]/20 bg-[#2C200F]/80 backdrop-blur-md shadow-premium rounded-none">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-2xl font-serif font-bold text-[#F5ECD7]">Sign In</CardTitle>
+            <CardDescription className="font-sans text-[#8B6F47] text-sm">
               Enter your credentials to manage your digital archive.
             </CardDescription>
           </CardHeader>
+          
           <form onSubmit={handleLogin}>
-            <CardContent className="space-y-4 font-sans">
+            <CardContent className="space-y-5 font-sans">
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-xs font-semibold text-muted-foreground">Username</Label>
+                <Label htmlFor="username" className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#8B6F47]">
+                  Username
+                </Label>
                 <Input
                   id="username"
                   placeholder="admin"
-                  className="h-10 border border-border/40 hover:border-primary/20 focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg transition-all"
+                  className="h-11 bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all text-sm font-sans"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-xs font-semibold text-muted-foreground">Password</Label>
+                <Label htmlFor="password" className="text-[10px] font-sans uppercase tracking-widest font-semibold text-[#8B6F47]">
+                  Password
+                </Label>
                 <Input
                   id="password"
                   type="password"
                   placeholder="••••••••"
-                  className="h-10 border border-border/40 hover:border-primary/20 focus-visible:ring-1 focus-visible:ring-primary/20 rounded-lg transition-all"
+                  className="h-11 bg-[#1A1209]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/40 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all text-sm font-sans"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
             </CardContent>
-            <CardFooter className="flex flex-col gap-4 font-sans">
-              <Button type="submit" className="w-full h-11 rounded-full font-semibold shadow-sm hover:shadow-md transition-all cursor-pointer" disabled={loading}>
-                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : 'Access Dashboard'}
+            
+            <CardFooter className="flex flex-col gap-5 pt-4 pb-6 font-sans">
+              <Button 
+                type="submit" 
+                className="w-full h-11 rounded-none font-sans uppercase tracking-[0.08em] text-xs font-semibold bg-[#D4A354] hover:bg-[#D4A354]/90 text-[#1A1209] transition-all hover:shadow-[0_0_15px_rgba(212,163,84,0.2)] cursor-pointer" 
+                disabled={loading}
+              >
+                {loading ? <Loader2 className="h-4 w-4 animate-spin text-[#1A1209]" /> : 'Access Dashboard'}
               </Button>
-              <p className="text-center text-sm text-muted-foreground">
+              <p className="text-center text-xs text-[#8B6F47]">
                 Don&apos;t have an account?{' '}
-                <Link href="/register" className="text-primary font-medium hover:underline">
+                <Link href="/register" className="text-[#D4A354] font-semibold hover:underline">
                   Sign up
                 </Link>
               </p>
@@ -105,8 +122,8 @@ export default function LoginPage() {
           </form>
         </Card>
         
-        <p className="text-center mt-8 text-sm text-muted-foreground">
-          <Link href="/" className="hover:text-primary transition-colors italic">
+        <p className="text-center mt-8 text-xs font-sans uppercase tracking-wider">
+          <Link href="/" className="text-[#8B6F47] hover:text-[#D4A354] transition-colors italic">
             &larr; Return to public site
           </Link>
         </p>

@@ -10,14 +10,10 @@ import { Badge } from '@/components/ui/badge';
 import { 
   Search, 
   Filter, 
-  FileText, 
-  Image as ImageIcon, 
-  Hash, 
-  Download, 
-  ExternalLink,
   ChevronDown,
   Loader2,
   Eye,
+  ExternalLink,
   Type
 } from 'lucide-react';
 import { fetchAllContent } from '@/app/actions';
@@ -107,14 +103,15 @@ export default function BrowsePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#1A1209] text-[#F5ECD7] font-body selection:bg-[#D4A354]/25">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-12 animate-fade-in-up">
-        <div className="max-w-5xl mx-auto space-y-8">
-          <div className="text-center space-y-4">
-            <h1 className="text-4xl font-serif font-bold">The Digital Repository</h1>
-            <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+      <main className="container mx-auto px-6 py-16 animate-fade-in-up max-w-5xl">
+        <div className="space-y-12">
+          {/* Page Title */}
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#F5ECD7]">The Digital Repository</h1>
+            <p className="text-[#8B6F47] leading-relaxed font-serif italic">
               Browse the complete collection of archived documents, research papers, and historical records.
             </p>
           </div>
@@ -122,36 +119,36 @@ export default function BrowsePage() {
           {/* Search & Filter Bar */}
           <div className="flex flex-col md:flex-row gap-4 font-sans">
             <div className="relative flex-1 group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#8B6F47] group-focus-within:text-[#D4A354] transition-colors" />
               <Input 
                 placeholder="Search text, titles, authors..." 
-                className="pl-11 h-12 bg-background border border-border/40 hover:border-primary/20 shadow-premium focus-visible:ring-1 focus-visible:ring-primary/20 rounded-xl transition-all"
+                className="pl-11 h-12 bg-[#2C200F]/40 border border-[#D4A354]/20 hover:border-[#D4A354]/40 focus-visible:border-[#D4A354] text-[#F5ECD7] placeholder:text-[#8B6F47]/50 shadow-premium focus-visible:ring-1 focus-visible:ring-[#D4A354]/10 rounded-none transition-all font-sans text-sm"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
               />
             </div>
             
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5">
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
-                      <Filter className="h-4 w-4 text-primary" />
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-[#2C200F]/60 border border-[#D4A354]/25 hover:border-[#D4A354] hover:bg-[#D4A354]/10 text-[#D4A354] shadow-premium px-5 rounded-none transition-all cursor-pointer text-[10px] font-sans uppercase tracking-[0.08em] font-semibold")}>
+                      <Filter className="h-3.5 w-3.5" />
                       Content Type
-                      <ChevronDown className="h-4 w-4 opacity-50" />
+                      <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
+                <DropdownMenuContent align="end" className="w-56 rounded-none border border-[#D4A354]/25 bg-[#2C200F] text-[#F5ECD7] shadow-premium font-sans">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel className="font-serif">Filter by Type</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="font-serif text-[#D4A354] text-xs uppercase tracking-wide">Filter by Type</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-[#D4A354]/15" />
                     {contentTypes.map(type => (
                       <DropdownMenuCheckboxItem
                         key={type}
                         checked={selectedTypes.includes(type)}
                         onCheckedChange={() => toggleType(type)}
-                        className="capitalize rounded-lg"
+                        className="capitalize rounded-none text-xs hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10 hover:text-[#D4A354] focus:text-[#D4A354] transition-all cursor-pointer"
                       >
                         {type}
                       </DropdownMenuCheckboxItem>
@@ -163,22 +160,22 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-[#2C200F]/60 border border-[#D4A354]/25 hover:border-[#D4A354] hover:bg-[#D4A354]/10 text-[#D4A354] shadow-premium px-5 rounded-none transition-all cursor-pointer text-[10px] font-sans uppercase tracking-[0.08em] font-semibold")}>
                       Language
-                      <ChevronDown className="h-4 w-4 opacity-50" />
+                      <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
+                <DropdownMenuContent align="end" className="w-56 rounded-none border border-[#D4A354]/25 bg-[#2C200F] text-[#F5ECD7] shadow-premium font-sans">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel className="font-serif">Filter by Language</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="font-serif text-[#D4A354] text-xs uppercase tracking-wide">Filter by Language</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-[#D4A354]/15" />
                     {languages.map(lang => (
                       <DropdownMenuCheckboxItem
                         key={lang}
                         checked={selectedLangs.includes(lang)}
                         onCheckedChange={() => toggleLang(lang)}
-                        className="rounded-lg"
+                        className="rounded-none text-xs hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10 hover:text-[#D4A354] focus:text-[#D4A354] transition-all cursor-pointer"
                       >
                         {lang}
                       </DropdownMenuCheckboxItem>
@@ -190,25 +187,25 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-[#2C200F]/60 border border-[#D4A354]/25 hover:border-[#D4A354] hover:bg-[#D4A354]/10 text-[#D4A354] shadow-premium px-5 rounded-none transition-all cursor-pointer text-[10px] font-sans uppercase tracking-[0.08em] font-semibold")}>
                       Author
-                      <ChevronDown className="h-4 w-4 opacity-50" />
+                      <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
+                <DropdownMenuContent align="end" className="w-56 rounded-none border border-[#D4A354]/25 bg-[#2C200F] text-[#F5ECD7] shadow-premium font-sans">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel className="font-serif">Filter by Author</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="font-serif text-[#D4A354] text-xs uppercase tracking-wide">Filter by Author</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-[#D4A354]/15" />
                     {authors.length === 0 ? (
-                      <div className="px-2 py-4 text-xs text-center text-muted-foreground italic">No authors found</div>
+                      <div className="px-2 py-4 text-xs text-center text-[#8B6F47] italic">No authors found</div>
                     ) : (
                       authors.map(author => (
                         <DropdownMenuCheckboxItem
                           key={author}
                           checked={selectedAuthors.includes(author)}
                           onCheckedChange={() => toggleAuthor(author)}
-                          className="rounded-lg"
+                          className="rounded-none text-xs hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10 hover:text-[#D4A354] focus:text-[#D4A354] transition-all cursor-pointer"
                         >
                           {author}
                         </DropdownMenuCheckboxItem>
@@ -221,25 +218,25 @@ export default function BrowsePage() {
               <DropdownMenu>
                 <DropdownMenuTrigger
                   render={
-                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-background border border-border/40 hover:border-primary/20 hover:bg-primary/5 shadow-premium px-5 rounded-xl transition-all cursor-pointer text-xs font-semibold")}>
+                    <button className={cn(buttonVariants({ variant: "outline" }), "h-12 gap-2 bg-[#2C200F]/60 border border-[#D4A354]/25 hover:border-[#D4A354] hover:bg-[#D4A354]/10 text-[#D4A354] shadow-premium px-5 rounded-none transition-all cursor-pointer text-[10px] font-sans uppercase tracking-[0.08em] font-semibold")}>
                       Date
-                      <ChevronDown className="h-4 w-4 opacity-50" />
+                      <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                     </button>
                   }
                 />
-                <DropdownMenuContent align="end" className="w-56 rounded-xl shadow-premium">
+                <DropdownMenuContent align="end" className="w-56 rounded-none border border-[#D4A354]/25 bg-[#2C200F] text-[#F5ECD7] shadow-premium font-sans">
                   <DropdownMenuGroup>
-                    <DropdownMenuLabel className="font-serif">Filter by Date</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel className="font-serif text-[#D4A354] text-xs uppercase tracking-wide">Filter by Date</DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-[#D4A354]/15" />
                     {dates.length === 0 ? (
-                      <div className="px-2 py-4 text-xs text-center text-muted-foreground italic">No dates found</div>
+                      <div className="px-2 py-4 text-xs text-center text-[#8B6F47] italic">No dates found</div>
                     ) : (
                       dates.map(date => (
                         <DropdownMenuCheckboxItem
                           key={date}
                           checked={selectedDates.includes(date)}
                           onCheckedChange={() => toggleDate(date)}
-                          className="rounded-lg"
+                          className="rounded-none text-xs hover:bg-[#D4A354]/10 focus:bg-[#D4A354]/10 hover:text-[#D4A354] focus:text-[#D4A354] transition-all cursor-pointer"
                         >
                           {date}
                         </DropdownMenuCheckboxItem>
@@ -253,78 +250,84 @@ export default function BrowsePage() {
 
           {/* Results Grid */}
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-24 gap-4">
-              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-              <p className="text-sm text-muted-foreground font-serif italic tracking-wide">Retrieving records from the archive...</p>
+            <div className="flex flex-col items-center justify-center py-32 gap-5">
+              <Loader2 className="h-7 w-7 animate-spin text-[#D4A354]" />
+              <p className="text-sm text-[#8B6F47] font-serif italic tracking-wide">Retrieving records from the archive...</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredItems.length === 0 ? (
-                <div className="col-span-full text-center py-24 border-2 border-dashed rounded-2xl bg-muted/5">
-                  <p className="text-muted-foreground italic font-serif">No records match your current search or filters.</p>
+                <div className="col-span-full text-center py-28 border border-dashed border-[#D4A354]/20 bg-[#2C200F]/10">
+                  <p className="text-[#8B6F47] italic font-serif">No records match your current search or filters.</p>
                 </div>
               ) : (
                 filteredItems.map(item => (
-                  <Card key={item.id} className="group border border-border/20 shadow-premium hover:shadow-premium-hover hover:scale-[1.01] transition-all duration-300 overflow-hidden bg-background rounded-xl">
-                    <CardHeader className="pb-3">
-                      <div className="flex items-center justify-between mb-2">
-                        <Badge variant="outline" className="text-[9px] uppercase font-bold tracking-widest px-2 py-0.5 border-primary/20 text-primary bg-primary/5 rounded">
+                  <Card key={item.id} className="group border border-[#D4A354]/15 hover:border-[#D4A354]/30 shadow-premium hover:shadow-premium-hover hover:scale-[1.01] transition-all duration-300 overflow-hidden bg-[#2C200F]/80 rounded-none flex flex-col justify-between">
+                    <CardHeader className="pb-3 pt-6 px-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge variant="outline" className="text-[9px] uppercase font-sans font-semibold tracking-widest px-2 py-0.5 border-[#D4A354]/30 text-[#D4A354] bg-[#D4A354]/5 rounded-none">
                           {item.contentType}
                         </Badge>
-                        <span className="text-[10px] text-muted-foreground font-sans font-semibold uppercase tracking-wider">{item.publishDate}</span>
+                        <span className="text-[9px] text-[#8B6F47] font-sans uppercase tracking-wider font-semibold">{item.publishDate}</span>
                       </div>
-                      <CardTitle className="font-serif group-hover:text-primary transition-colors line-clamp-1 text-base">{item.title}</CardTitle>
+                      <CardTitle className="font-serif font-bold text-lg text-[#F5ECD7] group-hover:text-[#D4A354] transition-colors line-clamp-1">{item.title}</CardTitle>
                     </CardHeader>
-                    <CardContent className="pb-3 text-sm">
-                      <p className="text-muted-foreground mb-4 font-sans text-xs">By <span className="font-serif italic font-medium text-foreground">{item.author}</span></p>
-                      <div className="flex flex-wrap gap-1.5">
+                    <CardContent className="pb-5 px-6 text-sm flex-1 flex flex-col justify-between">
+                      <p className="text-[#8B6F47] mb-4 font-sans text-xs">By <span className="font-serif italic font-semibold text-[#F5ECD7]">{item.author}</span></p>
+                      <div className="flex flex-wrap gap-1.5 pt-2">
                         {item.tags.map(tag => (
-                          <span key={tag} className="text-[9px] bg-secondary/80 px-2 py-0.5 rounded-sm border border-border/40 text-muted-foreground uppercase font-bold tracking-wider">
+                          <span key={tag} className="text-[8px] bg-[#1A1209] px-2 py-0.5 border border-[#D4A354]/10 text-[#8B6F47] uppercase font-sans font-semibold tracking-wider">
                             {tag}
                           </span>
                         ))}
                       </div>
                     </CardContent>
-                    <CardFooter className="pt-3 border-t border-border/30 bg-muted/10 flex gap-2 font-sans">
+                    <CardFooter className="pt-4 pb-5 px-6 border-t border-[#D4A354]/10 bg-[#0F0B06]/30 flex gap-2.5 font-sans">
                       <Dialog>
                         <DialogTrigger
                           render={
-                            <Button variant="ghost" size="sm" className="flex-1 h-9 gap-2 text-xs border border-border/40 hover:border-primary/20 hover:bg-primary/5 transition-all rounded-lg font-semibold hover:text-primary cursor-pointer">
+                            <Button variant="ghost" size="sm" className="flex-1 h-9 gap-2 text-[10px] font-sans uppercase tracking-[0.08em] border border-[#D4A354]/30 text-[#D4A354] hover:border-[#D4A354] hover:bg-[#D4A354]/10 bg-transparent transition-all rounded-none font-semibold hover:text-[#D4A354] cursor-pointer">
                               <Eye className="h-3.5 w-3.5" />
                               Insights
                             </Button>
                           }
                         />
-                        <DialogContent className="sm:max-w-2xl max-h-[80vh] flex flex-col rounded-xl shadow-premium">
-                          <DialogHeader>
-                            <DialogTitle className="font-serif text-xl flex items-center gap-2">
-                              <Type className="h-5 w-5 text-primary" />
+                        <DialogContent className="sm:max-w-2xl max-h-[85vh] flex flex-col rounded-none border border-[#D4A354]/25 bg-[#1A1209] text-[#F5ECD7] shadow-premium font-sans">
+                          <DialogHeader className="border-b border-[#D4A354]/15 pb-4">
+                            <DialogTitle className="font-serif text-xl flex items-center gap-2 text-[#D4A354] font-bold">
+                              <Type className="h-5 w-5" />
                               Extracted Text Analysis
                             </DialogTitle>
-                            <DialogDescription className="font-sans">
-                              Full text content retrieved from {item.title} via OCR.
+                            <DialogDescription className="font-sans text-xs text-[#8B6F47] uppercase tracking-wide mt-1">
+                              Full manuscript content retrieved from {item.title} via OCR.
                             </DialogDescription>
                           </DialogHeader>
-                          <div className="flex-1 overflow-y-auto my-4 p-6 bg-[#FAF7F2] rounded-xl border border-border/60">
+                          
+                          {/* Tactile ancient manuscript sheet container */}
+                          <div className="flex-1 overflow-y-auto my-4 p-8 bg-[#E8DCC8] rounded-none border border-[#8B6F47]/20 shadow-inner">
                             {item.extractedText ? (
-                              <pre className="whitespace-pre-wrap font-serif text-sm leading-relaxed text-foreground/80 selection:bg-primary/20">
+                              <pre className="whitespace-pre-wrap font-serif text-[15px] leading-relaxed text-[#1A1209] selection:bg-[#D4A354]/35 font-medium">
                                 {item.extractedText}
                               </pre>
                             ) : (
-                              <div className="flex flex-col items-center justify-center py-12 text-muted-foreground italic font-serif">
-                                <Search className="h-12 w-12 mb-4 opacity-20" />
+                              <div className="flex flex-col items-center justify-center py-16 text-[#8B6F47] italic font-serif">
+                                <Search className="h-10 w-10 mb-4 opacity-30 text-[#8B6F47]" />
                                 <p>No text was extracted from this record.</p>
                               </div>
                             )}
                           </div>
-                          <DialogFooter showCloseButton />
+                          <DialogFooter showCloseButton className="border-t border-[#D4A354]/15 pt-3" />
                         </DialogContent>
                       </Dialog>
+                      
                       <a 
                         href={`/${item.filePath}`} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "flex-1 h-9 gap-2 text-xs border border-border/40 hover:border-primary/20 hover:bg-primary/5 transition-all rounded-lg font-semibold hover:text-primary cursor-pointer")}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "sm" }), 
+                          "flex-1 h-9 gap-2 text-[10px] font-sans uppercase tracking-[0.08em] border border-[#D4A354]/30 text-[#D4A354] hover:border-[#D4A354] hover:bg-[#D4A354]/10 bg-transparent transition-all rounded-none font-semibold hover:text-[#D4A354] cursor-pointer"
+                        )}
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                         View
