@@ -7,7 +7,7 @@ export const getSiteDataStore = () => {
   if (process.env.NETLIFY_API_TOKEN) options.token = process.env.NETLIFY_API_TOKEN;
   
   if (Object.keys(options).length > 0) {
-    return getStore('site-data', options as any);
+    return getStore('site-data', options as unknown as Parameters<typeof getStore>[1]);
   }
   return getStore('site-data');
 };
@@ -18,7 +18,7 @@ export const getUploadsStore = () => {
   if (process.env.NETLIFY_API_TOKEN) options.token = process.env.NETLIFY_API_TOKEN;
   
   if (Object.keys(options).length > 0) {
-    return getStore('uploads', options as any);
+    return getStore('uploads', options as unknown as Parameters<typeof getStore>[1]);
   }
   return getStore('uploads');
 };
