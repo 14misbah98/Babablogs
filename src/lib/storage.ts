@@ -1,15 +1,27 @@
 import { getStore } from '@netlify/blobs';
 import { ContentMetadata } from './types';
 
-export const getSiteDataStore = () => getStore('site-data', {
-  siteID: process.env.NETLIFY_SITE_ID,
-  token: process.env.NETLIFY_API_TOKEN,
-});
+export const getSiteDataStore = () => {
+  const options: Record<string, string> = {};
+  if (process.env.NETLIFY_SITE_ID) options.siteID = process.env.NETLIFY_SITE_ID;
+  if (process.env.NETLIFY_API_TOKEN) options.token = process.env.NETLIFY_API_TOKEN;
+  
+  if (Object.keys(options).length > 0) {
+    return getStore('site-data', options as any);
+  }
+  return getStore('site-data');
+};
 
-export const getUploadsStore = () => getStore('uploads', {
-  siteID: process.env.NETLIFY_SITE_ID,
-  token: process.env.NETLIFY_API_TOKEN,
-});
+export const getUploadsStore = () => {
+  const options: Record<string, string> = {};
+  if (process.env.NETLIFY_SITE_ID) options.siteID = process.env.NETLIFY_SITE_ID;
+  if (process.env.NETLIFY_API_TOKEN) options.token = process.env.NETLIFY_API_TOKEN;
+  
+  if (Object.keys(options).length > 0) {
+    return getStore('uploads', options as any);
+  }
+  return getStore('uploads');
+};
 const METADATA_KEY = 'metadata';
 
 export async function ensureStorage() {
