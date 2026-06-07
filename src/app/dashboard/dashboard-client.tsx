@@ -194,7 +194,12 @@ export function DashboardClient({ allContent }: { allContent: ContentMetadata[] 
                   <p className="text-[9px] uppercase tracking-widest font-sans font-semibold text-primary mb-2">
                     Extracted Text
                   </p>
-                  <div className="bg-background/60 border border-primary/10 p-3 max-h-48 overflow-y-auto text-xs text-muted-foreground font-body leading-relaxed whitespace-pre-wrap">
+                  <div 
+                    className={`bg-background/60 border border-primary/10 p-3 max-h-48 overflow-y-auto text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap ${
+                      ['urd', 'ara', 'fas'].includes(lightboxItem.language) ? 'font-serif text-right' : 'font-body'
+                    }`}
+                    dir={['urd', 'ara', 'fas'].includes(lightboxItem.language) ? 'rtl' : 'ltr'}
+                  >
                     {lightboxItem.extractedText}
                   </div>
                 </div>

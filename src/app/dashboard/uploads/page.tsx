@@ -198,7 +198,9 @@ export default function UploadsPage() {
         errorHandler: (err: unknown) => console.error('Tesseract Error:', err),
       });
 
-      await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD });
+      // Use PSM.AUTO (3) instead of AUTO_OSD (1). AUTO is fully automatic page 
+      // segmentation which handles multi-column layouts significantly better.
+      await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO });
       const { data: { text } } = await worker.recognize(blob);
       await worker.terminate();
 
