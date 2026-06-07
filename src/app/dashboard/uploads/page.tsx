@@ -181,7 +181,10 @@ export default function UploadsPage() {
     setOcrProcessing(item.id);
     try {
       // 1. Fetch the file from the Netlify Blobs proxy route
-      const fileRes = await fetch(`/uploads/${item.filePath}`);
+      // item.filePath is stored as e.g. "uploads/images/file.jpg"
+      // The proxy route at /uploads/[...path] prepends "uploads/" internally,
+      // so we fetch /{filePath} directly (NOT /uploads/{filePath})
+      const fileRes = await fetch(`/${item.filePath}`);
       if (!fileRes.ok) throw new Error('Could not fetch file from storage.');
       const blob = await fileRes.blob();
 
