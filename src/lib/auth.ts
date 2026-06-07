@@ -91,7 +91,7 @@ export async function register(username: string, password: string, name: string)
 
 export async function logout() {
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
+  cookieStore.delete({ name: SESSION_COOKIE_NAME, path: '/' });
 }
 
 export async function getSession(): Promise<AuthSession | null> {
