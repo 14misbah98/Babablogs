@@ -59,7 +59,8 @@ export async function login(username: string, password: string): Promise<boolean
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      expires: new Date(expires),
+      path: '/',
+      maxAge: SESSION_DURATION / 1000, // maxAge in seconds (more reliable than expires)
     });
     return true;
   }
