@@ -26,6 +26,15 @@ export async function editContent(id: string, updates: any) {
   revalidatePath('/browse');
 }
 
+export async function saveExtractedText(id: string, extractedText: string) {
+  if (!(await isAuthenticated())) {
+    throw new Error('Unauthorized');
+  }
+  await updateContent(id, { extractedText });
+  revalidatePath('/dashboard/uploads');
+  revalidatePath('/browse');
+}
+
 export async function fetchContentById(id: string) {
   return await getContentById(id);
 }

@@ -1,16 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { addContent, getUploadsStore } from '@/lib/storage';
-import { extractText } from '@/lib/ocr';
 import { ContentMetadata, ContentType } from '@/lib/types';
 import { isAuthenticated } from '@/lib/auth';
 
-const LANG_MAP: { [key: string]: string } = {
-  'English': 'eng',
-  'Urdu': 'urd',
-  'Hindi': 'hin',
-  'Marathi': 'mar'
-};
+
 
 export async function POST(req: NextRequest) {
   if (!(await isAuthenticated())) {
@@ -76,19 +70,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Failed saving to Netlify Blobs: ' + msg }, { status: 500 });
     }
 
-    // Perform OCR
+    // For plain text files, extract text directly. For images/PDFs, OCR is done manually in the browser.
     let extractedText = '';
-    const ocrLang = LANG_MAP[language] || 'eng';
-    
-    try {
-      if (contentType === 'image' || contentType === 'pdf') {
-        extractedText = await extractText(buffer, file.type, ocrLang);
-      } else if (contentType === 'text') {
-        extractedText = buffer.toString('utf-8');
-      }
-    } catch (ocrError: unknown) {
-      console.error('OCR Error:', ocrError);
-      // Continue even if OCR fails
+    if (contentType === 'text') {
+      extractedText = buffer.toString('utf-8');
     }
 
     const metadata: ContentMetadata = {

@@ -31,9 +31,9 @@ import {
 } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Trash2, Edit, FileText, Image as ImageIcon, Hash, Loader2, Search } from 'lucide-react';
+import { Plus, Trash2, Edit, FileText, Image as ImageIcon, Hash, Loader2, Search, ScanText, CheckCircle2 } from 'lucide-react';
 import { toast } from 'sonner';
-import { fetchAllContent, removeContent, editContent } from '@/app/actions';
+import { fetchAllContent, removeContent, editContent, saveExtractedText } from '@/app/actions';
 import { ContentMetadata, ContentType } from '@/lib/types';
 
 export default function UploadsPage() {
@@ -44,6 +44,8 @@ export default function UploadsPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ContentMetadata | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [ocrProcessing, setOcrProcessing] = useState<string | null>(null); // holds item.id being processed
+  const [ocrDone, setOcrDone] = useState<Set<string>>(new Set());
 
   // Form states
   const [file, setFile] = useState<File | null>(null);
@@ -164,6 +166,50 @@ export default function UploadsPage() {
       loadItems();
     } catch (error) {
       toast.error('Error', { description: 'Failed to delete item.' });
+    }
+  };
+
+  const LANG_MAP: { [key: string]: string } = {
+    'English': 'eng', 'Urdu': 'urd', 'Hindi': 'hin', 'Marathi': 'mar'
+  };
+
+  const handleExtractText = async (item: ContentMetadata) => {
+    if (item.contentType === 'text') {
+      toast.info('Text files do not need OCR.');
+      return;
+    }
+    setOcrProcessing(item.id);
+    try {
+      // 1. Fetch the file from the Netlify Blobs proxy route
+      const fileRes = await fetch(`/uploads/${item.filePath}`);
+      if (!fileRes.ok) throw new Error('Could not fetch file from storage.');
+      const blob = await fileRes.blob();
+
+      // 2. Run Tesseract.js entirely in the browser
+      const { createWorker, PSM } = await import('tesseract.js');
+      const lang = LANG_MAP[item.language] || 'eng';
+
+      toast.info('OCR Running...', { description: `Extracting text from "${item.title}". This may take a moment.` });
+
+      const worker = await createWorker(lang, 1, {
+        errorHandler: (err: unknown) => console.error('Tesseract Error:', err),
+      });
+
+      await worker.setParameters({ tessedit_pageseg_mode: PSM.AUTO_OSD });
+      const { data: { text } } = await worker.recognize(blob);
+      await worker.terminate();
+
+      // 3. Save extracted text to the database via server action
+      await saveExtractedText(item.id, text);
+
+      setOcrDone(prev => new Set(prev).add(item.id));
+      loadItems();
+      toast.success('OCR Complete', { description: `Text extracted and saved for "${item.title}".` });
+    } catch (err) {
+      console.error(err);
+      toast.error('OCR Failed', { description: 'Could not extract text. Check the console for details.' });
+    } finally {
+      setOcrProcessing(null);
     }
   };
 
@@ -348,19 +394,20 @@ export default function UploadsPage() {
                 <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-primary h-11">Author</TableHead>
                 <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-primary h-11">Date</TableHead>
                 <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-primary h-11">Tags</TableHead>
+                <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-primary h-11">OCR</TableHead>
                 <TableHead className="text-[10px] font-sans font-bold uppercase tracking-wider text-primary h-11 text-right px-6">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {loading ? (
                 <TableRow className="border-none hover:bg-transparent">
-                  <TableCell colSpan={6} className="text-center py-16">
+                  <TableCell colSpan={7} className="text-center py-16">
                     <Loader2 className="h-6 w-6 animate-spin mx-auto text-primary" />
                   </TableCell>
                 </TableRow>
               ) : filteredItems.length === 0 ? (
                 <TableRow className="border-primary/10 hover:bg-transparent">
-                  <TableCell colSpan={6} className="text-center py-16 text-sm text-muted-foreground italic font-serif">
+                  <TableCell colSpan={7} className="text-center py-16 text-sm text-muted-foreground italic font-serif">
                     {searchQuery ? 'No results found for your search.' : 'No items found. Upload some content to get started.'}
                   </TableCell>
                 </TableRow>
@@ -388,6 +435,29 @@ export default function UploadsPage() {
                           </span>
                         ))}
                       </div>
+                    </TableCell>
+                    <TableCell className="py-4">
+                      {item.contentType !== 'text' && (
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          title={item.extractedText ? 'Re-extract text (OCR)' : 'Extract text (OCR)'}
+                          className={cn(
+                            "h-8 w-8 rounded-none border transition-all cursor-pointer",
+                            ocrDone.has(item.id) || item.extractedText
+                              ? "border-green-600/40 hover:border-green-500 hover:bg-green-500/10 text-green-400"
+                              : "border-primary/20 hover:border-primary hover:bg-primary/10 text-primary"
+                          )}
+                          disabled={ocrProcessing === item.id}
+                          onClick={() => handleExtractText(item)}
+                        >
+                          {ocrProcessing === item.id
+                            ? <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            : ocrDone.has(item.id) || item.extractedText
+                            ? <CheckCircle2 className="h-3.5 w-3.5" />
+                            : <ScanText className="h-3.5 w-3.5" />}
+                        </Button>
+                      )}
                     </TableCell>
                     <TableCell className="text-right px-6 py-4">
                       <div className="flex justify-end gap-2.5">
