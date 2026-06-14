@@ -44,16 +44,6 @@ export default function Navbar() {
           >
             Browse Archive
           </Link>
-          <Link 
-            href="/login"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }), 
-              "gap-2 border border-primary/30 hover:border-primary hover:bg-primary/10 text-primary transition-all text-[11px] font-sans uppercase tracking-[0.08em] px-4 h-9 rounded-none bg-transparent cursor-pointer"
-            )}
-          >
-            <LayoutDashboard className="h-3.5 w-3.5" />
-            Author Portal
-          </Link>
         </div>
       </div>
     </nav>

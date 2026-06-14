@@ -292,31 +292,78 @@ export default function BrowsePage() {
                             </Button>
                           }
                         />
-                        <DialogContent className="sm:max-w-2xl max-h-[85vh] flex flex-col rounded-none border border-primary/25 bg-background text-foreground shadow-premium font-sans">
-                          <DialogHeader className="border-b border-primary/15 pb-4">
+                        <DialogContent className="sm:max-w-[90vw] md:max-w-6xl max-h-[90vh] flex flex-col rounded-none border border-primary/25 bg-background text-foreground shadow-premium font-sans">
+                          <DialogHeader className="border-b border-primary/15 pb-4 shrink-0">
                             <DialogTitle className="font-serif text-xl flex items-center gap-2 text-primary font-bold">
                               <Type className="h-5 w-5" />
-                              Extracted Text Analysis
+                              Extracted Text Analysis: {item.title}
                             </DialogTitle>
                             <DialogDescription className="font-sans text-xs text-muted-foreground uppercase tracking-wide mt-1">
-                              Full manuscript content retrieved from {item.title} via OCR.
+                              Full manuscript content retrieved via OCR alongside the original document.
                             </DialogDescription>
                           </DialogHeader>
                           
-                          {/* Tactile ancient manuscript sheet container */}
-                          <div className="flex-1 overflow-y-auto my-4 p-8 bg-[#E8DCC8] rounded-none border border-muted-foreground/20 shadow-inner">
-                            {item.extractedText ? (
-                              <pre className="whitespace-pre-wrap font-serif text-[15px] leading-relaxed text-primary-foreground selection:bg-primary/35 font-medium">
-                                {item.extractedText}
-                              </pre>
-                            ) : (
-                              <div className="flex flex-col items-center justify-center py-16 text-muted-foreground italic font-serif">
-                                <Search className="h-10 w-10 mb-4 opacity-30 text-muted-foreground" />
-                                <p>No text was extracted from this record.</p>
+                          <div className="flex-1 overflow-hidden my-4 flex flex-col md:flex-row gap-6 min-h-[60vh]">
+                            {/* Original Document View */}
+                            <div className="flex-1 border border-primary/15 bg-secondary/30 relative h-full flex flex-col">
+                              <div className="bg-secondary px-4 py-2 border-b border-primary/15 text-[10px] font-sans uppercase tracking-widest font-semibold text-muted-foreground shrink-0">
+                                Original Document
                               </div>
-                            )}
+                              <div className="flex-1 overflow-hidden relative">
+                                {item.contentType === 'image' ? (
+                                  <img 
+                                    src={`/${item.filePath}`} 
+                                    alt={item.title} 
+                                    className="w-full h-full object-contain p-2"
+                                  />
+                                ) : item.contentType === 'pdf' ? (
+                                  <iframe 
+                                    src={`/${item.filePath}#view=FitH`} 
+                                    className="w-full h-full border-none"
+                                    title={item.title}
+                                  />
+                                ) : (
+                                  <div className="flex items-center justify-center h-full text-muted-foreground italic font-serif text-sm">
+                                    Plain text document (No media to display)
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            
+                            {/* Extracted Text View */}
+                            <div className="flex-1 flex flex-col h-full border border-primary/15">
+                              <div className="bg-secondary px-4 py-2 border-b border-primary/15 text-[10px] font-sans uppercase tracking-widest font-semibold text-muted-foreground shrink-0">
+                                Transcribed Text
+                              </div>
+                              <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-[#E8DCC8] shadow-inner">
+                                {item.extractedText ? (
+                                  <pre className="whitespace-pre-wrap font-serif text-[15px] leading-relaxed text-primary-foreground selection:bg-primary/35 font-medium">
+                                    {item.extractedText}
+                                  </pre>
+                                ) : (
+                                  <div className="flex flex-col items-center justify-center h-full py-16 text-muted-foreground italic font-serif">
+                                    <Search className="h-10 w-10 mb-4 opacity-30 text-muted-foreground" />
+                                    <p>No text was extracted from this record.</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
                           </div>
-                          <DialogFooter showCloseButton className="border-t border-primary/15 pt-3" />
+                          
+                          <DialogFooter className="border-t border-primary/15 pt-3 shrink-0">
+                            <a 
+                              href={`/${item.filePath}`} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className={cn(
+                                buttonVariants({ variant: "outline", size: "sm" }), 
+                                "h-9 gap-2 text-[10px] font-sans uppercase tracking-[0.08em] border border-primary/30 text-primary hover:border-primary hover:bg-primary/10 bg-transparent transition-all rounded-none font-semibold hover:text-primary cursor-pointer"
+                              )}
+                            >
+                              <ExternalLink className="h-3.5 w-3.5" />
+                              Open File Fullscreen
+                            </a>
+                          </DialogFooter>
                         </DialogContent>
                       </Dialog>
                       

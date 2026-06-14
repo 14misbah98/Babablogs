@@ -49,15 +49,6 @@ export default function HomePage() {
                 Explore Archive
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
-              <Link 
-                href="/login"
-                className={cn(
-                  buttonVariants({ size: "lg", variant: "outline" }), 
-                  "rounded-none px-8 h-13 text-xs uppercase tracking-[0.1em] font-semibold border border-primary/40 hover:border-primary text-primary bg-transparent hover:bg-primary/10 transition-all duration-300 flex items-center justify-center cursor-pointer"
-                )}
-              >
-                Author Dashboard
-              </Link>
             </div>
 
             {/* Visual Archival Showcase mockup */}
